@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: dim_product
+    description: Employee Dimension. One row per product
+    columns:
+      - name: productkey
+        description: The surrogate key of the product
+        tests:
+          - not_null
+          - unique
+      - name: productid
+        description: The id of each product (business key)
+        tests:
+          - not_null
+          - unique
+      - name: productname
+        description: The name of each product
+      - name: supplierkey
+        description: FK to dim_supplier for snowflake
+      - name: categoryname
+        description: The category name of each product
+      - name: categorydescription
+        description: The category description of each product

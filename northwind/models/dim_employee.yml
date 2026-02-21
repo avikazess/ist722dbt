@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: dim_employee
+    description: Employee Dimension. One row per employee
+    columns:
+      - name: employeekey
+        description: The surrogate key of the employee
+        tests:
+          - not_null
+          - unique
+      - name: employeeid
+        description: The business / source key of the employee
+        tests:
+          - not_null
+          - unique
+      - name: employenamelastfirst
+        description: The employee last and first names
+      - name: employenamefirstlast
+        description: The employee first and last names
+      - name: employetitle
+        description: The employee title
+      - name: superviornamelastfirst
+        description: The supervisor last and first names
+      - name: superviornamefirstlast
+        description: The supervisor first and last names
+      
