@@ -1,0 +1,66 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: Conformed Date Dimension. One row per day of the year.
+    columns:
+      - name: datekey 
+        data_type: int 
+        description: The surrogate key of the date YYYYMMDD
+        tests:
+          - not_null
+          - unique
+      - name: date
+        description: The date of the date key
+        tests:
+          - not_null
+          - unique
+      - name: year
+        description: '2026'
+        tests:
+          - not_null
+      - name: month
+        description: January, February...
+        tests:
+          - not_null
+      - name: quarter
+        description: Q1-Q4
+        tests:
+          - not_null
+      - name: day
+        description: day of the month (1-31)
+        tests:
+          - not_null
+      - name: dayofweek
+        description: The position of the day within the week (numeric)
+        tests:
+          - not_null
+      - name: weekofyear
+        description: number of the week in a year(1-52)
+        tests:
+          - not_null
+      - name: dayofyear
+        description: number of the day in a year(<365).
+        tests:
+          - not_null
+      - name: quartername
+        description: Q1-Q4
+        tests:
+          - not_null
+      - name: monthname
+        description: January,February...
+        tests:
+          - not_null
+      - name: dayname
+        description: Monday,Tuesday
+        tests:
+          - not_null
+      - name: weekday
+        description: numeric index of the day within the week
+        tests:
+          - not_null
+
+
+
+
+
