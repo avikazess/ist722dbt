@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: dim_payment_method
+    description: payment method Dimension. One row per credit card
+
+    columns:
+      - name: payment_method_key
+        description: The surrogate key of the payment method
+        tests:
+          - not_null
+          - unique
+      - name: payment_method
+        description: credit card or Not Applicable
+        tests:
+          - not_null
+
+      - name: payment_creditcard_id
+        description: credit card id number
+      - name: payment_creditcard_number
+        description: credit card number
+      - name: payment_creditcard_exp_date
+        description: credit card expiration date
+    
+    

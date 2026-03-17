@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: dim_product
+    description: Product Dimension. One row per product
+
+    columns:
+      - name: product_key
+        description: The surrogate key of the product
+        tests:
+          - not_null
+          - unique
+      - name: product_id
+        description: The business / source key of the customer
+        tests:
+          - not_null
+
+      - name: product_name
+        description: product name
+      - name: product_is_active
+        description: product can still be purchased or not
+      - name: product_start_date
+        description: start date to purchase a product
+      - name: product_department
+        description: product department
+      - name: product_vendor_name
+        description: product vendor name 
+      - name: division
+        description: FudgeFlix or FudgeMart
+    

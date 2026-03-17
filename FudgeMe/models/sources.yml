@@ -1,0 +1,83 @@
+version: 2
+
+sources:
+  - name: conformed
+    database: raw
+    schema: conformed
+
+    tables:
+      - name: DateDimension
+        columns:
+          - name: DateKey
+            tests:
+                - unique
+
+  - name: fudgemart_v3
+    database: raw
+    schema: fudgemart_v3
+
+    tables: 
+      - name: fm_customers
+        columns:
+          - name: customer_id
+            tests:
+              - unique
+      - name: fm_products
+        columns: 
+          - name: product_id
+            tests: 
+              - unique
+      
+      - name: fm_vendors
+        columns:
+          - name: vendor_id
+            tests:
+               - unique
+            
+      - name: fm_orders
+        columns:
+          - name: order_id
+            tests:
+              - not_null
+        
+      - name: fm_order_details
+        columns:
+          - name: order_id
+            tests:
+              - not_null
+
+      - name: fm_creditcards
+        columns:
+          - name: creditcard_id
+            tests:
+              - not_null
+              - unique
+
+  - name: fudgeflix_v3
+    database: raw
+    schema: fudgeflix_v3
+
+    tables: 
+      - name: ff_accounts
+        columns:
+          - name: account_id
+            tests:
+              - unique
+      - name: ff_zipcodes
+        columns:
+          - name: zip_code
+            tests:
+              - unique
+      - name: ff_plans
+        columns: 
+          - name: plan_id
+            tests: 
+              - unique
+      - name: ff_account_billing
+        columns:
+          - name: ab_id
+            tests:
+              - not_null
+
+              
+              
