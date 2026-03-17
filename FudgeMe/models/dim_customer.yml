@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: dim_customer
+    description: Customer Dimension. One row per customer
+
+    columns:
+      - name: customer_key
+        description: The surrogate key of the customer
+        tests:
+          - not_null
+          - unique
+      - name: customer_id
+        description: The business / source key of the customer
+        tests:
+          - not_null
+          - unique
+      - name: customer_email
+        description: customer email 
+      - name: customer_firstname
+        description: customer firstname
+      - name: customer_lastname
+        description: customer lastname
+      - name: customer_address
+        description: customer street name and number
+      - name: customer_city
+        description: customer city
+      - name: customer_state
+        description: customer state
+      - name: customer_zip
+        description: customer zip code 
+      - name: customer_phone
+        description: customer phone number 
+      - name: customer_fax
+        description: customer fax number
+      - name: division
+        description: FudgeFlix or FudgeMart
+    

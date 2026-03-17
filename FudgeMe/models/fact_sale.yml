@@ -1,0 +1,80 @@
+version: 2
+
+models:
+  - name: fact_sale
+    description: Sale Orders fact. One row per product per order-level
+
+    columns:
+      - name: order_id
+        description: degenrate dimension, source key used for drill through
+        tests:
+          - not_null
+      - name: customer_key
+        description: Dimension FK for dim_customer
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_customer')
+                field: customer_key
+      - name: order_date_key
+        description: Dimension FK for dim_date
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+      - name: product_key
+        description: Dimension FK for dim_product
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_product')
+                field: product_key
+        
+      - name: payment_method_key
+        description: Dimension FK for dim_payment_method_key
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_payment_method_key')
+                field: payment_method_key
+
+      - name: order_quantity
+        description: The quantity of a product in an order
+        tests:
+          - not_null
+
+      - name: unit_selling_price
+        description: Product selling price
+        tests:
+          - not_null
+      - name: unit_cost_price
+        description: Product cost price
+        tests:
+          - not_null
+
+      - name: order_sold_amount
+        description:  quantity * product selling price 
+        tests:
+          - not_null
+      - name: order_cost_amount
+        description:  quantity * product cost price 
+        tests:
+          - not_null
+
+      - name: order_profit
+        description:  sold_amount - cost_amount
+        tests:
+          - not_null
+      - name: order_profit_margin
+        description:  order_profit / sold_amount
+        tests:
+          - not_null
+      - name: division
+        description:  FudgeFlix or FudgeMart
+        tests:
+          - not_null
+      
