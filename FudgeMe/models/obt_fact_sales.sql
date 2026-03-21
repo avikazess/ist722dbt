@@ -19,8 +19,7 @@ select
     d_customer.customer_zip,d_customer.customer_phone,d_customer.customer_fax,
     d_product.product_key,d_product.product_id,d_product.product_name,d_product.product_is_active,
     d_product.product_start_date,d_product.product_department,d_product.product_vendor_name,
-    d_payment_method.payment_method_key,d_payment_method.payment_method,d_payment_method.payment_creditcard_id,
-    d_payment_method.payment_creditcard_number,d_payment_method.payment_creditcard_exp_date,
+    d_payment_method.payment_method_key,d_payment_method.payment_type,d_payment_method.payment_id,d_payment_method.card_network,
     d_date.*,
     fs.order_id,fs.order_date_key,fs.order_quantity,fs.unit_selling_price,fs.unit_cost_price, 
     fs.order_sold_amount,fs.order_cost_amount,fs.order_profit,fs.order_profit_margin,fs.division

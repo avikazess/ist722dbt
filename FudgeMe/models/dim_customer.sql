@@ -5,7 +5,7 @@ with ff_accounts as (
         account_email as customer_email,
         account_firstname as customer_firstname,
         account_lastname as customer_lastname,
-        account_address as customer_address,
+        COALESCE(account_address, 'UNKNOWN') AS customer_address,
         z.zip_city as customer_city,
         z.zip_state as customer_state,
         account_zipcode as customer_zip,
@@ -26,12 +26,12 @@ fm_customers as (
         customer_email,
         customer_firstname,
         customer_lastname,
-        customer_address,
+        COALESCE(customer_address, 'UNKNOWN') AS customer_address,
         customer_city,
         customer_state,
         customer_zip,
         customer_phone,
-        customer_fax,
+        COALESCE(customer_fax, '-1') AS customer_fax,
         'FudgeMart' as division
 
     from {{ source('fudgemart_v3','fm_customers') }}

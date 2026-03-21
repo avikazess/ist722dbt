@@ -6,7 +6,7 @@ with ff_plans as (
         plan_current as product_is_active,
         TO_DATE('1900-01-01') as product_start_date,
         'fudgeflix_subscriptions' as product_department,
-        '-1' as product_vendor_name,
+        'UNKNOWN' as product_vendor_name,
         'FudgeFlix' as division
     from {{ source('fudgeflix_v3','ff_plans') }} 
 

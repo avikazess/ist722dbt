@@ -4,16 +4,16 @@ with dim_customer as (
 
 ),
 
- dim_payment_method as (
-
-    select * from {{ ref('dim_payment_method') }}
-),
-
 dim_product as (
 
     select * from {{ ref('dim_product') }}
 
 ),
+dim_payment_method as (
+
+    select * from {{ ref('dim_payment_method') }} 
+ ),
+
 
  ff as (
 
@@ -22,7 +22,7 @@ dim_product as (
         replace(to_date(to_timestamp(fab.ab_date/1000000))::varchar,'-','')::int as order_date_key,
         dc.customer_key,
         dp.product_key,
-        pm.payment_method_key,
+        '-1' as payment_method_key,
         1 as order_quantity,
         cast(fpa.plan_price as number (12,4)) as unit_selling_price,
         cast(fpa.plan_price/2 as number (12,4)) as unit_cost_price,
@@ -30,7 +30,7 @@ dim_product as (
         cast(fab.ab_billed_amount/2 as number (12,4))as order_cost_amount,
         cast(fab.ab_billed_amount-(fab.ab_billed_amount/2)as number (12,4)) as order_profit,
         cast(((fab.ab_billed_amount-(fab.ab_billed_amount/2))/ fab.ab_billed_amount)as number (7,4))  as order_profit_margin,
-        'fudgeflix' as division
+        'FudgeFlix' as division
     from {{ source('fudgeflix_v3','ff_plans') }}  fpa 
 
     join {{ source('fudgeflix_v3','ff_account_billing') }} fab 
@@ -38,15 +38,19 @@ dim_product as (
 
     join dim_customer dc
         on fab.ab_account_id=dc.customer_id
-        and dc.division='fudgeflix'
+        and dc.division='FudgeFlix'
     join dim_product dp
-        on dp.division = 'fudgeflix'
-    join dim_payment_method pm
-        on pm.division = 'fudgeflix'
+        on fab.ab_plan_id=dp.product_id
+        and dp.division = 'FudgeFlix'
+
+
 ),
 
 
+
 fm as (
+
+     
 
     select
          a.order_id,
@@ -62,27 +66,27 @@ fm as (
          cast((b.order_qty*pr.product_retail_price)-(b.order_qty*pr.product_wholesale_price) as number (12,4)) as order_profit,
          cast(((b.order_qty*pr.product_retail_price)-(b.order_qty*pr.product_wholesale_price)) / 
          nullif((b.order_qty*pr.product_retail_price),0) as number (9,4)) as order_profit_margin,
-         'fudgemart' as division
+         'FudgeMart' as division
     from {{ source('fudgemart_v3','fm_orders') }} a
 
-    left join {{ source('fudgemart_v3','fm_creditcards') }} cc
+    join {{ source('fudgemart_v3','fm_creditcards') }} cc
         on a.creditcard_id=cc.creditcard_id
+    
+    join dim_payment_method pm
+        on cc.creditcard_id=pm.payment_id
 
-     join {{ source('fudgemart_v3','fm_order_details') }} b
+    join {{ source('fudgemart_v3','fm_order_details') }} b
         on a.order_id = b.order_id 
-    left join {{ source('fudgemart_v3','fm_products') }} pr 
+     join {{ source('fudgemart_v3','fm_products') }} pr 
         on b.product_id=pr.product_id
 
     join dim_customer dc
         on a.customer_id = dc.customer_id
-        and dc.division = 'fudgemart'
+        and dc.division = 'FudgeMart'
 
     join dim_product dp
         on pr.product_id = dp.product_id
-        and dp.division = 'fudgemart'
-
-    join dim_payment_method pm
-        on pm.division = 'fudgemart'
+        and dp.division = 'FudgeMart'
 ),
 
 all_sales as (
